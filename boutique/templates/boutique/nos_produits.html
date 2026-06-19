@@ -1,0 +1,52 @@
+{% extends 'boutique/base.html' %}
+{% block title %}Nos Jus – Les Délices d'Aïcha{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/nos_produits.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-titre-zone">
+  <h2 class="s-titre">Nos Jus Naturels</h2>
+  <p style="color:var(--gris); margin-top: 20px; max-width: 480px; margin-left: auto; margin-right: auto;">
+    Tous préparés avec des fruits frais, sans conservateurs ni colorants. La nature dans chaque gorgée.
+  </p>
+</div>
+
+{% if produits %}
+<div class="grid">
+  {% for produit in produits %}
+  <div class="jus-card">
+    {% if produit.image %}
+      <img src="{{ produit.image.url }}" alt="{{ produit.nom }}">
+    {% else %}
+      <div class="img-vide"></div>
+    {% endif %}
+    <div class="jus-corps">
+      <h3>{{ produit.nom }}</h3>
+      <p>{{ produit.description }}</p>
+      <div class="jus-pied">
+        <span class="prix">{{ produit.prix }} FCFA</span>
+        <div class="jus-actions">
+          <a href="{% url 'produit_detail' produit.pk %}" class="btn btn-outline-vert btn-sm">
+            <i class="bi bi-eye"></i> Voir
+          </a>
+          <a href="{% url 'commander_produit' produit.pk %}" class="btn btn-orange btn-sm">
+            <i class="bi bi-cart-plus"></i> Commander
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div style="text-align:center; padding:80px 20px; color:var(--gris);">
+  <div style="font-size:4rem;"></div>
+  <p style="font-size:1.05rem; margin-top:16px;">Aucun produit disponible pour le moment.</p>
+</div>
+{% endif %}
+
+{% endblock %}

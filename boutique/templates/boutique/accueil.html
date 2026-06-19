@@ -1,0 +1,116 @@
+{% extends 'boutique/base.html' %}
+
+{% block title %}Les Délices d'Aïcha – Jus Naturels à Dakar{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/accueil.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag"> 100% Naturel · Fait au Sénégal</span>
+    <h2>Les meilleurs jus<br><em>naturels</em> de Dakar</h2>
+    <p>Des jus frais préparés avec des fruits locaux, sans conservateurs ni colorants. Livraison rapide à Almadies et Kounoune.</p>
+    <div class="hero-actions">
+      <a href="{% url 'nos_produits' %}" class="btn btn-jaune btn-lg">
+        <i class="bi bi-cup-straw"></i> Voir nos jus
+      </a>
+      <a href="{% url 'commander' %}" class="btn" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.3);">
+        <i class="bi bi-cart-plus"></i> Commander
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-val">6</div>
+        <div class="stat-lab">Saveurs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">0%</div>
+        <div class="stat-lab">Conservateurs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val"></div>
+        <div class="stat-lab">Livraison</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AVANTAGES -->
+<div class="avantages">
+  <div class="avantage">
+    <span class="avantage-icon"></span>
+    <h4>100% Naturel</h4>
+    <p>Fruits frais sans additif. On ne triche pas avec la nature.</p>
+  </div>
+  <div class="avantage">
+    <span class="avantage-icon"></span>
+    <h4>Livraison rapide</h4>
+    <p>Almadies & Kounoune — votre jus arrive chez vous vite.</p>
+  </div>
+  <div class="avantage">
+    <span class="avantage-icon"></span>
+    <h4>Fait avec amour</h4>
+    <p>Recettes traditionnelles sénégalaises transmises de génération en génération.</p>
+  </div>
+</div>
+
+<!-- PRODUITS -->
+<div class="section-header">
+  <div>
+    <h2 class="s-titre">Nos Jus du Moment</h2>
+    <p class="s-sous">Fraîcheur garantie, saveurs authentiques</p>
+  </div>
+  <a href="{% url 'nos_produits' %}" class="btn btn-outline-vert btn-sm">
+    Voir tout <i class="bi bi-arrow-right"></i>
+  </a>
+</div>
+
+{% if produits %}
+<div class="produits-grid">
+  {% for produit in produits %}
+  <div class="card-jus">
+    {% if produit.image %}
+      <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" class="card-jus-img">
+    {% else %}
+      <div class="img-vide card-jus-img"></div>
+    {% endif %}
+    <div class="card-jus-corps">
+      <h3>{{ produit.nom }}</h3>
+      <p>{{ produit.description|truncatewords:18 }}</p>
+      <div class="card-jus-pied">
+        <span class="prix">{{ produit.prix }} FCFA</span>
+        <div class="card-jus-actions">
+          <a href="{% url 'produit_detail' produit.pk %}" class="btn btn-outline-vert btn-sm">
+            <i class="bi bi-eye"></i> Voir 
+          </a>
+          <a href="{% url 'commander_produit' produit.pk %}" class="btn btn-orange btn-sm">
+            <i class="bi bi-cart-plus"></i> Commander
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div style="text-align:center; padding:60px 20px; color:var(--gris);">
+  <div style="font-size:4rem; margin-bottom:16px;"></div>
+  <p style="font-size:1.05rem;">Les produits arrivent bientôt…</p>
+</div>
+{% endif %}
+
+<!-- CTA -->
+<div class="cta-bande">
+  <h3>Prêt à savourer la fraîcheur ?</h3>
+  <p>Passez votre commande en ligne, nous vous livrons rapidement !</p>
+  <a href="{% url 'commander' %}" class="btn btn-jaune btn-lg">
+    <i class="bi bi-cart-plus-fill"></i> Commander maintenant
+  </a>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'boutique/base.html' %}
+{% block title %}Commande confirmée – Les Délices d'Aïcha{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/confirmation.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="confirm-wrap">
+  <div class="check-anim">
+    <i class="bi bi-check-lg"></i>
+  </div>
+
+  <h2 class="confirm-titre">Commande envoyée !</h2>
+  <p class="confirm-sous">Merci <strong>{{ commande.nom_client }}</strong> pour votre confiance. 🙏</p>
+
+  <div class="recapitulatif">
+    <div class="recap-titre">
+      <i class="bi bi-receipt"></i> Récapitulatif de commande
+    </div>
+    <div class="recap-ligne">
+      <span class="lab">Produit</span>
+      <span class="val">{{ commande.produit }}</span>
+    </div>
+    <div class="recap-ligne">
+      <span class="lab">Quantité</span>
+      <span class="val">{{ commande.quantite }}</span>
+    </div>
+    <div class="recap-ligne recap-total">
+      <span class="lab">Total estimé</span>
+      <span class="val">{{ commande.total }} FCFA</span>
+    </div>
+    <div class="recap-ligne">
+      <span class="lab">Zone</span>
+      <span class="val">{{ commande.get_zone_display }}</span>
+    </div>
+    <div class="recap-ligne">
+      <span class="lab">Adresse</span>
+      <span class="val">{{ commande.adresse }}</span>
+    </div>
+    <div class="recap-ligne">
+      <span class="lab">Téléphone</span>
+      <span class="val">{{ commande.telephone }}</span>
+    </div>
+  </div>
+
+  <div class="appel-note">
+    <i class="bi bi-telephone-fill" style="color:var(--orange);"></i>
+    Nous vous appellerons au <strong>{{ commande.telephone }}</strong> très prochainement pour confirmer votre commande et organiser la livraison.
+  </div>
+
+  <div class="confirm-actions">
+    <a href="{% url 'accueil' %}" class="btn btn-vert">
+      <i class="bi bi-house-fill"></i> Retour à l'accueil
+    </a>
+    <a href="{% url 'nos_produits' %}" class="btn btn-outline-vert">
+      <i class="bi bi-cup-straw"></i> Voir d'autres jus
+    </a>
+  </div>
+</div>
+
+{% endblock %}

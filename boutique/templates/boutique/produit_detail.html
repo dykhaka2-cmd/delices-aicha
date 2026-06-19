@@ -1,0 +1,44 @@
+{% extends 'boutique/base.html' %}
+{% block title %}{{ produit.nom }} – Les Délices d'Aïcha{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/produit_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'nos_produits' %}" class="btn btn-outline-vert btn-sm retour">
+  <i class="bi bi-arrow-left"></i> Retour aux produits
+</a>
+
+<div class="detail-grid">
+  {% if produit.image %}
+    <img src="{{ produit.image.url }}" alt="{{ produit.nom }}" class="detail-img">
+  {% else %}
+    <div class="detail-img-vide"></div>
+  {% endif %}
+
+  <div class="detail-info">
+    <h1>{{ produit.nom }}</h1>
+    <p>{{ produit.description }}</p>
+    <div class="detail-prix">
+      {{ produit.prix }} FCFA
+      <small>/ unité</small>
+    </div>
+    <div class="detail-actions">
+      <a href="{% url 'commander_produit' produit.pk %}" class="btn btn-orange btn-lg">
+        <i class="bi bi-cart-plus-fill"></i> Commander ce jus
+      </a>
+      <a href="{% url 'contact' %}" class="btn btn-outline-vert">
+        <i class="bi bi-telephone"></i> Appeler
+      </a>
+    </div>
+    <div class="zone-info">
+      <i class="bi bi-geo-alt-fill" style="color:var(--orange);"></i>
+      Livraison disponible à <strong>Almadies</strong> et <strong>Kounoune</strong> · Dakar
+    </div>
+  </div>
+</div>
+
+{% endblock %}

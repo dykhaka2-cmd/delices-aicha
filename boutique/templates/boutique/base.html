@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Les Délices de Aïcha – Jus Naturels{% endblock %}</title>
+
+  
+  {% load static %}
+  <!-- CSS global -->
+  <link rel="stylesheet" href="{% static 'boutique/css/base.css' %}">
+
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- BANDEAU -->
+  <div class="bandeau">
+    <span>Jus <strong>100% naturels</strong></span>
+    <span class="sep">●</span>
+    <span> livraison <strong>Almadies & Kounoune</strong></span>
+    <span class="sep">●</span>
+    <span> téléphone<strong>76 240 89 93</strong></span>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      
+    <div class="logo">
+    <img src="{% static 'media/images/logo.png' %}" alt="Logo" width="120" height="120">
+   </div>  
+
+      <a href="{% url 'accueil' %}" class="brand">
+        <div class="brand-icon"></div>
+        <div class="brand-txt">
+          <h1>Les Délices d'Aïcha</h1>
+          <small>Jus naturels · Dakar</small>
+        </div>
+      </a>
+
+      <button class="burger" id="burgerBtn" aria-label="Ouvrir menu">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <nav id="mainNav">
+        <a href="{% url 'accueil' %}" class="nav-link">
+          <i class="bi bi-house-fill"></i> Accueil
+        </a>
+        <a href="{% url 'nos_produits' %}" class="nav-link">
+          <i class="bi bi-cup-straw"></i> Nos Jus
+        </a>
+        <a href="{% url 'contact' %}" class="nav-link">
+          <i class="bi bi-telephone-fill"></i> Contact
+        </a>
+        <a href="{% url 'commander' %}" class="nav-link nav-cta">
+          <i class="bi bi-cart-plus-fill"></i> Commander
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- MESSAGES FLASH -->
+  {% if messages %}
+  <div class="flash-zone">
+    {% for message in messages %}
+      <div class="flash flash-{{ message.tags }}">
+        <i class="bi bi-{% if message.tags == 'success' %}check-circle-fill{% else %}exclamation-triangle-fill{% endif %}"></i>
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- CONTENU -->
+  <main>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>Les Délices de Aïcha</h3>
+        <p>Des jus naturels préparés avec des fruits frais du Sénégal. Sans conservateur, sans colorant — juste la nature dans votre verre.</p>
+        <a href="tel:+221762408993" class="tel-btn">
+          <i class="bi bi-telephone-fill"></i> 76 240 89 93
+        </a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <a href="{% url 'accueil' %}"><i class="bi bi-chevron-right"></i> Accueil</a>
+        <a href="{% url 'nos_produits' %}"><i class="bi bi-chevron-right"></i> Nos Jus</a>
+        <a href="{% url 'commander' %}"><i class="bi bi-chevron-right"></i> Commander</a>
+        <a href="{% url 'contact' %}"><i class="bi bi-chevron-right"></i> Contact</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Nos Jus</h4>
+        <p> Jus Bissap</p>
+        <p> Jus Bouyi</p>
+        <p>Jus d'Orange</p>
+        <p>Jus Tamarin</p>
+        <p>Jus Cocktail</p>
+        <p>Jus de Gingembre</p>
+      </div>
+    </div>
+
+    <div class="footer-bas">
+      <span>© 2024 Les Délices de Aïcha · Dakar, Almadies / Kounoune</span>
+      <span>Fait avec ❤️ au Sénégal</span>
+    </div>
+  </footer>
+
+  <script>
+    // Menu burger mobile
+    const btn = document.getElementById('burgerBtn');
+    const nav = document.getElementById('mainNav');
+    btn.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      btn.innerHTML = nav.classList.contains('open')
+        ? '<i class="bi bi-x-lg"></i>'
+        : '<i class="bi bi-list"></i>';
+    });
+
+    // Lien actif
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.href === window.location.href) link.classList.add('active');
+    });
+  </script>
+
+  {% block scripts %}{% endblock %}
+</body>
+</html>

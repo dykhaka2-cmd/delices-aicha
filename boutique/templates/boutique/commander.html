@@ -1,0 +1,103 @@
+{% extends 'boutique/base.html' %}
+{% block title %}Commander – Les Délices de Aïcha{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/commander.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-wrap">
+  <div class="form-header">
+    <span class="icon"></span>
+    <h2>Passer une commande</h2>
+    <p>Remplissez le formulaire — nous vous appelons rapidement pour confirmer.</p>
+  </div>
+
+  <div class="form-card">
+    <form method="post" novalidate>
+      {% csrf_token %}
+
+      <!-- Infos client -->
+      <div class="form-section">
+        <div class="form-section-titre">
+          <i class="bi bi-person-circle"></i> Vos informations
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.nom_client.id_for_label }}">{{ form.nom_client.label }}</label>
+          {{ form.nom_client }}
+          {% if form.nom_client.errors %}
+            <div class="champ-erreur">{{ form.nom_client.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.telephone.id_for_label }}">{{ form.telephone.label }}</label>
+          {{ form.telephone }}
+          {% if form.telephone.errors %}
+            <div class="champ-erreur">{{ form.telephone.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.zone.id_for_label }}">{{ form.zone.label }}</label>
+          {{ form.zone }}
+          {% if form.zone.errors %}
+            <div class="champ-erreur">{{ form.zone.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.adresse.id_for_label }}">{{ form.adresse.label }}</label>
+          {{ form.adresse }}
+          {% if form.adresse.errors %}
+            <div class="champ-erreur">{{ form.adresse.errors.0 }}</div>
+          {% endif %}
+        </div>
+      </div>
+
+      <hr class="form-divider">
+
+      <!-- Commande -->
+      <div class="form-section">
+        <div class="form-section-titre">
+          <i class="bi bi-cup-straw"></i> Votre commande
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.produit.id_for_label }}">{{ form.produit.label }}</label>
+          {{ form.produit }}
+          {% if form.produit.errors %}
+            <div class="champ-erreur">{{ form.produit.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.quantite.id_for_label }}">{{ form.quantite.label }}</label>
+          {{ form.quantite }}
+          {% if form.quantite.errors %}
+            <div class="champ-erreur">{{ form.quantite.errors.0 }}</div>
+          {% endif %}
+        </div>
+
+        <div class="champ">
+          <label for="{{ form.message.id_for_label }}">{{ form.message.label }}</label>
+          {{ form.message }}
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-orange btn-submit">
+        <i class="bi bi-send-fill"></i> Envoyer ma commande
+      </button>
+    </form>
+  </div>
+
+  <div class="form-note">
+    <i class="bi bi-info-circle" style="color:var(--orange);"></i>
+    Après votre commande, nous vous appellerons au numéro fourni pour confirmer la livraison.
+  </div>
+</div>
+
+{% endblock %}

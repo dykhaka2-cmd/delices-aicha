@@ -1,0 +1,55 @@
+{% extends 'boutique/base.html' %}
+{% block title %}Contact – Les Délices d'Aïcha{% endblock %}
+
+{% load static %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'boutique/css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-wrap">
+  <div class="contact-header">
+    <h2 class="s-titre">Nous contacter</h2>
+    <p>Appelez-nous ou envoyez un message WhatsApp — nous répondons rapidement !</p>
+  </div>
+
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="icone">telephone</span>
+      <h4>Téléphone</h4>
+      <a href="tel:+221762408993" class="btn btn-vert">
+        76 240 89 93
+      </a>
+    </div>
+    <div class="contact-card">
+      <span class="icone">messenger</span>
+      <h4>WhatsApp</h4>
+      <a href="https://wa.me/221762408993" target="_blank" class="btn"
+         style="background:#25D366; color:white; box-shadow: 0 4px 14px rgba(37,211,102,0.35);">
+        <i class="bi bi-whatsapp"></i> Écrire
+      </a>
+    </div>
+  </div>
+
+  <div class="zone-card">
+    <h4>
+      <span style="font-size:1.4rem;">localisation</span> Zone de livraison
+    </h4>
+    <div class="zones">
+      <span class="zone-badge"> Almadies</span>
+      <span class="zone-badge"> Kounoune</span>
+      <span class="zone-badge"> Dakar (autre)</span>
+    </div>
+  </div>
+
+  <div class="cta-commander">
+    <div style="font-size:2.5rem; margin-bottom:12px;"></div>
+    <p>Prêt à commander vos jus naturels préférés ?</p>
+    <a href="{% url 'commander' %}" class="btn btn-jaune btn-lg">
+      <i class="bi bi-cart-plus-fill"></i> Commander maintenant
+    </a>
+  </div>
+</div>
+
+{% endblock %}
