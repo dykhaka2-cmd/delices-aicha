@@ -1,11 +1,10 @@
 """
 Paramètres Django pour Les Délices de Aïcha
 """
-
 from pathlib import Path
 import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-delices-aicha-2024-change-in-production')
 
@@ -23,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'boutique',  # Notre application
-    
 ]
 
 MIDDLEWARE = [
@@ -57,12 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'delices_aicha.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 import dj_database_url
 
 DATABASES = {
@@ -82,6 +74,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [
     BASE_DIR / 'boutique' / 'static',
 ]
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -91,8 +84,13 @@ STORAGES = {
     },
 }
 
+# Compatibilité avec django-cloudinary-storage (lit l'ancien attribut)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
